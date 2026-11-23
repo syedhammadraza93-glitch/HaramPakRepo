@@ -1,56 +1,29 @@
 import { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { CheckCircle, AlertCircle, FileText, Calendar } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
+import { PageBanner } from "@/components/layout/page-banner";
+import { ArrowRight } from "lucide-react";
 import { HajjInquiryForm } from "@/components/hajj/hajj-inquiry-form";
 
 export const metadata: Metadata = {
-  title: "Hajj Services - Haram Pak Pvt Ltd",
+  title: "Hajj Travel Services from Pakistan",
+  alternates: { canonical: "/hajj/" },
   description: "Professional Hajj services and support for your sacred pilgrimage to Makkah.",
 };
 
 export default function HajjPage() {
   return (
     <div>
-      {/* Hero Section with Unique Photography */}
-      <section className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/kaaba-pilgrims.jpg"
-            alt="Pilgrims at the Holy Kaaba"
-            fill
-            className="object-cover"
-            priority
-            quality={90}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#062A26]/85 via-[#063B32]/75 to-[#062A26]/90" />
-        </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-5xl mx-auto text-center text-white">
-            <p className="text-[#C5A46D] text-sm font-semibold tracking-wider uppercase mb-4">
-              Hajj Services
-            </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
-              The Sacred Journey
-              <br />
-              <span className="text-[#C5A46D]">Of A Lifetime</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-white/95 leading-relaxed max-w-3xl mx-auto">
-              Supporting you on your pilgrimage to Makkah with professional care, guidance, and dedication.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageBanner label="HAJJ SERVICES" title="Plan your Hajj from Pakistan" description="Talk to our Lahore team about Hajj registration, accommodations, transport and current availability." image="/images/makkah-at-night.webp">
+        <a href="#hajj-enquiry" className="pilgrim-button pilgrim-button-gold">Ask About Hajj <ArrowRight aria-hidden="true" /></a>
+      </PageBanner>
 
       {/* About Hajj */}
-      <section className="py-24 md:py-32 bg-white">
+      <section className="py-14 md:py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-[#C5A46D] text-sm font-semibold tracking-wider uppercase mb-4">
+              <p className="text-[#86602d] text-sm font-semibold tracking-wider uppercase mb-4">
                 Understanding Hajj
               </p>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#062A26] mb-6">
@@ -98,7 +71,7 @@ export default function HajjPage() {
               },
               {
                 title: "Accommodation",
-                description: "Hotel arrangements in Makkah, Mina, Arafat, and Madinah",
+                description: "Accommodation planning and guidance on arrangements for the holy sites",
                 icon: CheckCircle,
               },
               {
@@ -137,13 +110,11 @@ export default function HajjPage() {
               <CardContent className="pt-6">
                 <ul className="space-y-3">
                   {[
-                    "Valid passport (with at least 6 months validity)",
+                    "Passport with the validity required for your travel dates",
                     "Recent passport-sized photographs",
                     "Vaccination certificates (as required by Saudi authorities)",
-                    "Proof of mahram relationship (for female pilgrims)",
                     "Completed visa application forms",
                     "Marriage certificate (if applicable)",
-                    "Police clearance certificate (if required)",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <CheckCircle className="h-5 w-5 text-[#063B32] flex-shrink-0 mt-0.5" />
@@ -175,7 +146,7 @@ export default function HajjPage() {
                   <li>• Hajj services are subject to government allocations and approvals</li>
                   <li>• Availability depends on official Hajj quotas for Pakistan</li>
                   <li>• Registration procedures and timelines follow Saudi Arabia regulations</li>
-                  <li>• We provide support and assistance but do not control allocation processes</li>
+                  <li>• Confirm current registration and allocation requirements with our team</li>
                   <li>• Contact us for current year information and registration guidance</li>
                 </ul>
               </div>
@@ -185,14 +156,14 @@ export default function HajjPage() {
       </section>
 
       {/* Hajj Inquiry Form */}
-      <section className="py-20 bg-white">
+      <section id="hajj-enquiry" className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[#062A26] mb-4">
               Register Your Interest
             </h2>
             <p className="text-lg text-foreground/75 max-w-2xl mx-auto">
-              Submit your inquiry and we'll provide information about Hajj services, requirements, and availability.
+              Send your travel details through WhatsApp to ask about current requirements and availability.
             </p>
           </div>
           <HajjInquiryForm />

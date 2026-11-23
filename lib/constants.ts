@@ -25,10 +25,12 @@ export const SITE_CONFIG = {
     { name: "Umrah Packages", href: "/umrah" },
     { name: "Hajj", href: "/hajj" },
     { name: "Hotels", href: "/hotels" },
-    { name: "Flights", href: "/flights" },
+    { name: "Visas", href: "/visas" },
+    { name: "Tour Packages", href: "/tour-packages" },
+    { name: "Tickets", href: "/flights" },
     { name: "Other Services", href: "/services" },
     { name: "Gallery", href: "/gallery" },
-    { name: "Contact", href: "/contact" },
+    { name: "Contact Us", href: "/contact" },
   ],
 } as const;
 
@@ -38,3 +40,9 @@ export const COLORS = {
   mutedGold: "#C5A46D",
   warmIvory: "#FAF8F3",
 } as const;
+
+export const SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_URL || "https://www.harampak.pk";
+export const PRIVATE_REVIEW = process.env.NEXT_PUBLIC_PRIVATE_REVIEW === "1";
+
+const configuredPortalUrl = process.env.NEXT_PUBLIC_PILGRIM_PORTAL_URL?.trim();
+export const PORTAL_URL = configuredPortalUrl?.startsWith("https://") ? configuredPortalUrl : undefined;

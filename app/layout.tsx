@@ -1,45 +1,35 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import "@fontsource-variable/playfair-display";
+import "@fontsource-variable/inter";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
-import { SITE_CONFIG } from "@/lib/constants";
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  display: "swap",
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
+import { PRIVATE_REVIEW, SITE_CONFIG, SITE_ORIGIN } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `${SITE_CONFIG.name} - ${SITE_CONFIG.tagline}`,
+  metadataBase: new URL(SITE_ORIGIN),
+  icons: { icon: "/images/haram-pak-logo.png" },
+  title: { default: "Haram Pak | Hajj & Umrah Travel from Pakistan", template: "%s | Haram Pak" },
   description: SITE_CONFIG.description,
-  keywords: ["Hajj", "Umrah", "Islamic Travel", "Makkah", "Madinah", "Pakistan", "Pilgrimage"],
+  robots: PRIVATE_REVIEW ? { index: false, follow: false } : undefined,
   openGraph: {
-    title: SITE_CONFIG.name,
+    siteName: "Haram Pak",
+    title: "Haram Pak | Hajj & Umrah Travel from Pakistan",
     description: SITE_CONFIG.description,
     type: "website",
+    locale: "en_PK",
+    images: [{ url: "/images/makkah-golden-hour.webp", alt: "Illustration of Masjid al-Haram in Makkah" }],
   },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${playfair.variable} ${inter.variable} h-full antialiased`}
-    >
+    <html lang="en-PK" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
+        <a className="skip-link" href="#main-content">Skip to content</a>
         <Header />
-        <main className="flex-1 pt-[120px]">{children}</main>
+        <main id="main-content" className="flex-1" tabIndex={-1}>{children}</main>
         <Footer />
         <WhatsAppButton />
       </body>

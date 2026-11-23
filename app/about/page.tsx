@@ -1,53 +1,27 @@
 import { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Shield, Users, Award, CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { PageBanner } from "@/components/layout/page-banner";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "About Us - Haram Pak Pvt Ltd",
+  title: "About Our Lahore Travel Team",
+  alternates: { canonical: "/about/" },
   description: "Learn about Haram Pak's mission, values, and commitment to serving pilgrims on their sacred journeys.",
 };
 
 export default function AboutPage() {
   return (
     <div>
-      {/* Hero Section with Unique Photography */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/masjid-nabawi-minarets.jpg"
-            alt="Masjid an-Nabawi minarets"
-            fill
-            className="object-cover"
-            priority
-            quality={90}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#062A26]/80 via-[#063B32]/70 to-[#062A26]/85" />
-        </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center text-white">
-            <p className="text-[#C5A46D] text-sm font-semibold tracking-wider uppercase mb-4">
-              About Us
-            </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Dedicated to Your <br />Sacred Journey
-            </h1>
-            <p className="text-xl md:text-2xl text-white/95 leading-relaxed">
-              Serving pilgrims with care, respect, and professional excellence since our founding.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageBanner label="ABOUT HARAM PAK" title="20+ years serving pilgrims" description="A Lahore-based Hajj and Umrah travel team helping pilgrims plan their journey to Makkah and Madinah." image="/images/madinah-courtyard.webp" />
 
       {/* Company Story */}
       <section className="py-24 md:py-32 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <p className="text-[#C5A46D] text-sm font-semibold tracking-wider uppercase mb-4">
+              <p className="text-[#86602d] text-sm font-semibold tracking-wider uppercase mb-4">
                 Our Story
               </p>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#062A26] mb-8">
@@ -63,7 +37,7 @@ export default function AboutPage() {
               <p>
                 We understand the profound spiritual significance of the pilgrimage journey
                 and approach every aspect of our service with reverence and care. Our commitment
-                extends beyond mere travel logistics—we're dedicated to facilitating transformative
+                extends beyond mere travel logistics—we’re dedicated to facilitating transformative
                 spiritual experiences.
               </p>
               <p>
@@ -71,10 +45,6 @@ export default function AboutPage() {
                 comfortable, and meaningful for pilgrims from Pakistan. We strive to handle
                 every detail of your travel arrangements with professionalism and attention
                 to your individual needs.
-              </p>
-              <p className="text-base text-muted-foreground italic mt-8 pt-8 border-t">
-                Note: Company information is subject to verification. Please contact us directly
-                for current details about our services and credentials.
               </p>
             </div>
           </div>
@@ -85,7 +55,7 @@ export default function AboutPage() {
       <section className="py-24 md:py-32 bg-[#FAF8F3]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <p className="text-[#C5A46D] text-sm font-semibold tracking-wider uppercase mb-4">
+            <p className="text-[#86602d] text-sm font-semibold tracking-wider uppercase mb-4">
               What Guides Us
             </p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#062A26] mb-6">
@@ -179,19 +149,14 @@ export default function AboutPage() {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
               Let Us Help You
               <br />
-              <span className="text-[#C5A46D]">Plan Your Journey</span>
+              <span className="text-[#efcc94]">Plan Your Journey</span>
             </h2>
             <p className="text-xl md:text-2xl mb-12 text-white/95">
               Contact us to discuss your travel plans and learn how we can serve you.
             </p>
-            <Link href="/contact">
-              <Button 
-                size="lg" 
-                className="bg-[#C5A46D] hover:bg-[#B39460] text-[#062A26] font-semibold text-lg px-10 py-7 rounded-full shadow-2xl hover:scale-105 transition-all"
-              >
+            <Link href="/contact/#inquiry" className="pilgrim-button pilgrim-button-primary">
                 Get in Touch
-              </Button>
-            </Link>
+              </Link>
           </div>
         </div>
       </section>

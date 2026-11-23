@@ -45,7 +45,7 @@ A modern, premium travel website for Haram Pak Pvt Ltd, specializing in Hajj, Um
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 20.9+
 - npm or yarn
 
 ### Installation
@@ -83,7 +83,7 @@ Edit `/lib/constants.ts` to update:
 - Navigation menu
 - Social media links
 
-**Important**: All contact information is currently marked as "pending verification" and should be confirmed with the company before going live.
+Set `NEXT_PUBLIC_PILGRIM_PORTAL_URL` to the HTTPS address of the separate portal when it is ready. Until then, `/pilgrim-portal/` directs visitors to booking support. Confirm contact details, current package terms and the scope of the reported success rate before public launch.
 
 ## Content Guidelines
 
@@ -152,6 +152,14 @@ The site uses WhatsApp as the primary communication channel:
 - Number configured in `/lib/constants.ts`
 
 ## Deployment
+
+For the private review artifact, run:
+
+```bash
+HARAM_PAK_STATIC_EXPORT=1 NEXT_PUBLIC_PRIVATE_REVIEW=1 npm run build
+```
+
+Deploy `out/` using owner-only access at the hosting provider. The review build also sets noindex. Use the regular build for the approved public deployment, with the appropriate canonical site origin.
 
 ### Vercel (Recommended)
 1. Push code to GitHub

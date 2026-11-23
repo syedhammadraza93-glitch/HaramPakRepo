@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plane, Calendar, Users } from "lucide-react";
-import { SITE_CONFIG } from "@/lib/constants";
-import Image from "next/image";
+import { Plane } from "lucide-react";
+import { openWhatsApp } from "@/lib/inquiries";
+import { PageBanner } from "@/components/layout/page-banner";
 
 export default function FlightsPage() {
   const [formData, setFormData] = useState({
@@ -42,42 +42,12 @@ Name: ${formData.name}
 Phone: ${formData.phone}
     `.trim();
     
-    const whatsappUrl = `https://wa.me/${SITE_CONFIG.contact.whatsapp}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
+    openWhatsApp(message);
   };
 
   return (
     <div>
-      {/* Hero Section with Unique Photography */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/kaaba-daytime.jpg"
-            alt="The Holy Kaaba under blue skies"
-            fill
-            className="object-cover"
-            priority
-            quality={90}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#062A26]/85 via-[#063B32]/75 to-[#062A26]/90" />
-        </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-5xl mx-auto text-center text-white">
-            <p className="text-[#C5A46D] text-sm font-semibold tracking-wider uppercase mb-4">
-              Travel Arrangements
-            </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
-              Flight Booking
-              <br />
-              <span className="text-[#C5A46D]">Assistance</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-white/95 leading-relaxed">
-              Let us help you find the best flight options for your sacred journey.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageBanner label="FLIGHT ASSISTANCE" title="Flight tickets" description="Share your route, travel dates and group size to ask about flights from Pakistan." image="/images/makkah-golden-hour.webp" />
 
       {/* Flight Inquiry Form */}
       <section className="py-20 bg-[#FAF8F3]">
@@ -90,20 +60,20 @@ Phone: ${formData.phone}
                   Flight Inquiry Form
                 </CardTitle>
                 <p className="text-muted-foreground">
-                  Fill out the form below and we'll find the best flight options for you.
+                  Fill out the form below and we’ll find the best flight options for you.
                 </p>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Trip Type */}
                   <div className="space-y-2">
-                    <Label>Trip Type</Label>
+                    <Label htmlFor="trip-type">Trip type</Label>
                     <Select
                       onValueChange={(value: string | null) =>
                         setFormData({ ...formData, tripType: value || "round-trip" })
                       }
                     >
-                      <SelectTrigger>
+                      <SelectTrigger id="trip-type">
                         <SelectValue placeholder="Round Trip" />
                       </SelectTrigger>
                       <SelectContent>
@@ -161,6 +131,7 @@ Phone: ${formData.phone}
                         <Input
                           id="returnDate"
                           type="date"
+                          min={formData.departureDate || undefined}
                           required={formData.tripType === "round-trip"}
                           value={formData.returnDate}
                           onChange={(e) =>
@@ -199,13 +170,13 @@ Phone: ${formData.phone}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label>Cabin Class</Label>
+                      <Label htmlFor="cabin-class">Cabin class</Label>
                       <Select
                         onValueChange={(value: string | null) =>
                           setFormData({ ...formData, cabin: value || "economy" })
                         }
                       >
-                        <SelectTrigger>
+                        <SelectTrigger id="cabin-class">
                           <SelectValue placeholder="Economy" />
                         </SelectTrigger>
                         <SelectContent>
@@ -247,9 +218,7 @@ Phone: ${formData.phone}
 
                   <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
                     <p className="text-sm text-foreground/80">
-                      <strong>Note:</strong> This is an inquiry form. We'll search for the best
-                      available flight options and contact you with details and pricing.
-                      No booking commitment is made at this stage.
+                      Review and send your message in WhatsApp. Our team can check fares and availability for your travel dates.
                     </p>
                   </div>
 
@@ -258,7 +227,7 @@ Phone: ${formData.phone}
                     size="lg"
                     className="w-full bg-[#063B32] hover:bg-[#062A26]"
                   >
-                    Submit Flight Inquiry
+                    Continue to WhatsApp
                   </Button>
                 </form>
               </CardContent>

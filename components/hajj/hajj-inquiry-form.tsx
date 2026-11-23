@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { SITE_CONFIG } from "@/lib/constants";
+import { openWhatsApp } from "@/lib/inquiries";
 
 export function HajjInquiryForm() {
   const [formData, setFormData] = useState({
@@ -29,8 +29,7 @@ City: ${formData.city}
 Number of Pilgrims: ${formData.pilgrims}
 Additional Information: ${formData.message || "None specified"}`;
 
-    const whatsappUrl = `https://wa.me/${SITE_CONFIG.contact.whatsapp}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
+    openWhatsApp(message);
   };
 
   return (
@@ -38,7 +37,7 @@ Additional Information: ${formData.message || "None specified"}`;
       <CardHeader className="bg-[#063B32] text-white">
         <CardTitle className="text-2xl">Hajj Inquiry Form</CardTitle>
         <p className="text-white/90 text-sm mt-2">
-          Register your interest for Hajj services. We'll provide information about current availability,
+          Register your interest for Hajj services. We’ll provide information about current availability,
           requirements, and the application process.
         </p>
       </CardHeader>
@@ -118,8 +117,7 @@ Additional Information: ${formData.message || "None specified"}`;
 
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
             <p className="text-sm text-foreground/80">
-              <strong>Note:</strong> Hajj services are subject to government quota allocations.
-              We'll contact you with current availability and guide you through the application process.
+              Hajj availability depends on government allocations. Ask our team about current availability and the application process.
             </p>
           </div>
 
@@ -128,11 +126,11 @@ Additional Information: ${formData.message || "None specified"}`;
             className="w-full bg-[#063B32] hover:bg-[#062A26] text-white py-6 text-base rounded-full"
             size="lg"
           >
-            Submit Hajj Inquiry
+            Continue to WhatsApp
           </Button>
 
           <p className="text-xs text-center text-muted-foreground">
-            Your inquiry will be sent via WhatsApp. We'll respond within 24 hours with detailed information.
+            Review and send your enquiry in WhatsApp.
           </p>
         </form>
       </CardContent>

@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Palmtree, Building2, Map, Camera, Ship, Train } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import { PageBanner } from "@/components/layout/page-banner";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/services/" },
   title: "Other Travel Services - Haram Pak Pvt Ltd",
   description: "Additional travel services including international tours, domestic travel, and holiday packages.",
 };
@@ -13,36 +13,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <div>
-      {/* Hero Section with Unique Photography */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/masjid-al-haram-night.jpg"
-            alt="Masjid al-Haram at night"
-            fill
-            className="object-cover"
-            priority
-            quality={90}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#062A26]/85 via-[#063B32]/75 to-[#062A26]/90" />
-        </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-5xl mx-auto text-center text-white">
-            <p className="text-[#C5A46D] text-sm font-semibold tracking-wider uppercase mb-4">
-              Additional Services
-            </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
-              Complete Travel
-              <br />
-              <span className="text-[#C5A46D]">Solutions</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-white/95 leading-relaxed">
-              Beyond Hajj and Umrah, we offer comprehensive travel services for all your needs.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageBanner label="TRAVEL SUPPORT" title="Other travel services" description="Speak with our team about tickets, local and international travel, ground transport and accommodation." image="/images/makkah-at-night.webp" />
 
       {/* Services Grid */}
       <section className="py-20 bg-[#FAF8F3]">
@@ -62,11 +33,9 @@ export default function ServicesPage() {
                   assistance, flight bookings, and accommodation arrangements.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/contact">
-                    <Button variant="outline" className="w-full">
+                  <Link href="/contact/#inquiry" className="pilgrim-button pilgrim-button-primary">
                       Inquire Now
-                    </Button>
-                  </Link>
+                    </Link>
                 </div>
               </CardContent>
             </Card>
@@ -76,7 +45,7 @@ export default function ServicesPage() {
                 <Building2 className="h-12 w-12 text-[#063B32] mb-3" />
                 <CardTitle className="text-xl">Domestic Travel</CardTitle>
                 <CardDescription>
-                  Explore Pakistan's beautiful destinations with our domestic packages
+                  Explore Pakistan’s beautiful destinations with our domestic packages
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">
@@ -85,11 +54,9 @@ export default function ServicesPage() {
                   tourism, including hotels, transport, and guided tours.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/contact">
-                    <Button variant="outline" className="w-full">
+                  <Link href="/contact/#inquiry" className="pilgrim-button pilgrim-button-primary">
                       Inquire Now
-                    </Button>
-                  </Link>
+                    </Link>
                 </div>
               </CardContent>
             </Card>
@@ -108,11 +75,9 @@ export default function ServicesPage() {
                   your loved ones, with flexible itineraries.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/contact">
-                    <Button variant="outline" className="w-full">
+                  <Link href="/contact/#inquiry" className="pilgrim-button pilgrim-button-primary">
                       Inquire Now
-                    </Button>
-                  </Link>
+                    </Link>
                 </div>
               </CardContent>
             </Card>
@@ -131,11 +96,9 @@ export default function ServicesPage() {
                   travel preparation process.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/contact">
-                    <Button variant="outline" className="w-full">
+                  <Link href="/contact/#inquiry" className="pilgrim-button pilgrim-button-primary">
                       Inquire Now
-                    </Button>
-                  </Link>
+                    </Link>
                 </div>
               </CardContent>
             </Card>
@@ -154,11 +117,9 @@ export default function ServicesPage() {
                   transfers and inter-city travel.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/contact">
-                    <Button variant="outline" className="w-full">
+                  <Link href="/contact/#inquiry" className="pilgrim-button pilgrim-button-primary">
                       Inquire Now
-                    </Button>
-                  </Link>
+                    </Link>
                 </div>
               </CardContent>
             </Card>
@@ -177,11 +138,9 @@ export default function ServicesPage() {
                   organizations with special requirements.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/contact">
-                    <Button variant="outline" className="w-full">
+                  <Link href="/contact/#inquiry" className="pilgrim-button pilgrim-button-primary">
                       Inquire Now
-                    </Button>
-                  </Link>
+                    </Link>
                 </div>
               </CardContent>
             </Card>
@@ -200,7 +159,7 @@ export default function ServicesPage() {
               when you contact us.
             </p>
             <p className="text-sm text-foreground/80">
-              Please reach out to discuss your specific travel needs, and we'll work to accommodate
+              Please reach out to discuss your specific travel needs, and we’ll work to accommodate
               your requirements to the best of our ability.
             </p>
           </div>
@@ -217,11 +176,9 @@ export default function ServicesPage() {
             <p className="text-lg text-white/90 mb-8">
               Contact us to discuss how we can help with your travel plans.
             </p>
-            <Link href="/contact">
-              <Button size="lg" className="bg-[#C5A46D] hover:bg-[#B39460] text-[#062A26]">
+            <Link href="/contact/#inquiry" className="pilgrim-button pilgrim-button-primary">
                 Contact Us Today
-              </Button>
-            </Link>
+              </Link>
           </div>
         </div>
       </section>

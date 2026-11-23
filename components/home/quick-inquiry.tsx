@@ -1,74 +1,42 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card } from "@/components/ui/card";
+import { ArrowRight, CalendarDays, MapPin, Navigation, Users } from "lucide-react";
+import { openWhatsApp } from "@/lib/inquiries";
 
 export function QuickInquiry() {
-  const [formData, setFormData] = useState({
-    journeyType: "",
-    departureCity: "",
-    travelMonth: "",
-    travelers: "",
-    whatsapp: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const message = `Journey Type: ${formData.journeyType}, Departure: ${formData.departureCity}, Month: ${formData.travelMonth}, Travelers: ${formData.travelers}`;
-    const whatsappUrl = `https://wa.me/+923228054660?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
-  };
+  function submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const details = new FormData(event.currentTarget);
+    openWhatsApp([
+      "As-salamu alaykum! I’d like a pilgrimage quote.",
+      `Journey: ${details.get("journey")}`,
+      `Departure city: ${String(details.get("city")).trim()}`,
+      `Travel month: ${String(details.get("month")).trim() || "Flexible"}`,
+      `Travellers: ${details.get("travellers")}`,
+    ].join("\n"));
+  }
 
   return (
-    <section className="py-8 -mt-16 relative z-20">
-      <div className="container mx-auto px-4">
-        <Card className="p-6 shadow-xl bg-white/95 backdrop-blur">
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-            <Select onValueChange={(value: string | null) => setFormData({ ...formData, journeyType: value || "" })}>
-              <SelectTrigger>
-                <SelectValue placeholder="Journey Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="umrah">Umrah</SelectItem>
-                <SelectItem value="hajj">Hajj</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Input
-              placeholder="Departure City"
-              value={formData.departureCity}
-              onChange={(e) => setFormData({ ...formData, departureCity: e.target.value })}
-            />
-
-            <Input
-              placeholder="Travel Month"
-              value={formData.travelMonth}
-              onChange={(e) => setFormData({ ...formData, travelMonth: e.target.value })}
-            />
-
-            <Input
-              placeholder="Travelers"
-              type="number"
-              value={formData.travelers}
-              onChange={(e) => setFormData({ ...formData, travelers: e.target.value })}
-            />
-
-            <Input
-              placeholder="WhatsApp Number"
-              value={formData.whatsapp}
-              onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-            />
-
-            <Button type="submit" className="bg-[#063B32] hover:bg-[#062A26] text-white">
-              Request Quote
-            </Button>
-          </form>
-        </Card>
-      </div>
+    <section className="site-shell quick-plan-wrap" id="plan" aria-labelledby="plan-title">
+      <form onSubmit={submit} className="quick-plan">
+        <h2 id="plan-title">Plan your trip</h2>
+        <label><span><Navigation aria-hidden="true" /> Journey type</span>
+          <select name="journey" defaultValue="Umrah"><option>Umrah</option><option>Hajj</option></select>
+        </label>
+        <label><span><MapPin aria-hidden="true" /> Departure city</span>
+          <input name="city" defaultValue="Lahore" required maxLength={50} />
+        </label>
+        <label><span><CalendarDays aria-hidden="true" /> Travel month</span>
+          <input name="month" placeholder="Flexible" maxLength={32} />
+        </label>
+        <label><span><Users aria-hidden="true" /> Travellers</span>
+          <input name="travellers" type="number" defaultValue={2} required min={1} max={200} />
+        </label>
+        <div className="quick-plan-action">
+          <button type="submit" className="pilgrim-button pilgrim-button-primary">Request a Quote <ArrowRight aria-hidden="true" /></button>
+          <span>Opens WhatsApp</span>
+        </div>
+      </form>
     </section>
   );
 }

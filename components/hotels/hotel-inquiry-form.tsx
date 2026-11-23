@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar, Users, DollarSign } from "lucide-react";
-import { SITE_CONFIG } from "@/lib/constants";
+import { openWhatsApp } from "@/lib/inquiries";
 
 export function HotelInquiryForm() {
   const [formData, setFormData] = useState({
@@ -23,7 +23,7 @@ export function HotelInquiryForm() {
     requirements: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     const message = `Hotel Inquiry:
@@ -37,8 +37,13 @@ Guests: ${formData.guests}
 Budget: ${formData.budget}
 Requirements: ${formData.requirements || "None specified"}`;
 
-    const whatsappUrl = `https://wa.me/${SITE_CONFIG.contact.whatsapp}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
+    if (formData.checkOut <= formData.checkIn) {
+      const checkOut = e.currentTarget.querySelector<HTMLInputElement>("#checkOut");
+      checkOut?.setCustomValidity("Choose a check-out date after check-in.");
+      checkOut?.reportValidity();
+      return;
+    }
+    openWhatsApp(message);
   };
 
   return (
@@ -46,7 +51,7 @@ Requirements: ${formData.requirements || "None specified"}`;
       <CardHeader className="bg-[#063B32] text-white">
         <CardTitle className="text-2xl">Hotel Inquiry Form</CardTitle>
         <p className="text-white/90 text-sm mt-2">
-          Share your accommodation preferences and we'll provide suitable options with confirmed availability and pricing.
+          Share your accommodation preferences and we’ll provide suitable options with confirmed availability and pricing.
         </p>
       </CardHeader>
       <CardContent className="p-8">
@@ -134,7 +139,11 @@ Requirements: ${formData.requirements || "None specified"}`;
                   id="checkIn"
                   type="date"
                   value={formData.checkIn}
-                  onChange={(e) => setFormData({ ...formData, checkIn: e.target.value })}
+                  onChange={(e) => {
+                    const checkOut = e.currentTarget.form?.querySelector<HTMLInputElement>("#checkOut");
+                    checkOut?.setCustomValidity("");
+                    setFormData({ ...formData, checkIn: e.target.value });
+                  }}
                   className="pl-10"
                   required
                 />
@@ -147,8 +156,12 @@ Requirements: ${formData.requirements || "None specified"}`;
                 <Input
                   id="checkOut"
                   type="date"
+                  min={formData.checkIn || undefined}
                   value={formData.checkOut}
-                  onChange={(e) => setFormData({ ...formData, checkOut: e.target.value })}
+                  onChange={(e) => {
+                    e.currentTarget.setCustomValidity("");
+                    setFormData({ ...formData, checkOut: e.target.value });
+                  }}
                   className="pl-10"
                   required
                 />
@@ -190,11 +203,11 @@ Requirements: ${formData.requirements || "None specified"}`;
             className="w-full bg-[#063B32] hover:bg-[#062A26] text-white py-6 text-base rounded-full"
             size="lg"
           >
-            Submit Inquiry via WhatsApp
+            Continue to WhatsApp
           </Button>
 
           <p className="text-xs text-center text-muted-foreground">
-            Your inquiry will be sent via WhatsApp. We'll respond within 24 hours with available options and pricing.
+            Review and send your enquiry in WhatsApp.
           </p>
         </form>
       </CardContent>
