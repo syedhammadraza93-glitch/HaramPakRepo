@@ -3,23 +3,28 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, MessageCircle } from "lucide-react";
 import { PageBanner } from "@/components/layout/page-banner";
-import { packageQuote, umrahPackages } from "@/lib/umrah-packages";
+import { packageQuote } from "@/lib/umrah-packages";
 import { whatsappUrl } from "@/lib/inquiries";
 
-export function generateStaticParams() {
-  return umrahPackages.map(({ id }) => ({ id }));
+import { getWebsiteContent } from "@/lib/website-content";
+
+export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+  const { packages } = await getWebsiteContent();
+  return packages.map(({ id }) => ({ id }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/umrah/[id]">): Promise<Metadata> {
   const { id } = await params;
-  const pkg = umrahPackages.find(item => item.id === id);
+  const pkg = (await getWebsiteContent()).packages.find(item => item.id === id);
   if (!pkg) notFound();
   return { title: pkg.title, description: pkg.summary, alternates: { canonical: `/umrah/${pkg.id}/` } };
 }
 
 export default async function PackageDetail({ params }: PageProps<"/umrah/[id]">) {
   const { id } = await params;
-  const pkg = umrahPackages.find(item => item.id === id);
+  const pkg = (await getWebsiteContent()).packages.find(item => item.id === id);
   if (!pkg) notFound();
   const quote = packageQuote(pkg.id);
 

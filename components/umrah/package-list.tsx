@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { PackageCard } from "@/components/home/featured-packages";
-import { umrahPackages } from "@/lib/umrah-packages";
+import type { UmrahPackage } from "@/lib/umrah-packages";
 
 const filters = [
   { value: "All", label: "All packages" },
@@ -10,9 +10,9 @@ const filters = [
   { value: "Tailored", label: "Tailored options" },
 ] as const;
 
-export function PackageList() {
+export function PackageList({ catalogue }: { catalogue: UmrahPackage[] }) {
   const [selected, setSelected] = useState<(typeof filters)[number]["value"]>("All");
-  const packages = selected === "All" ? umrahPackages : umrahPackages.filter(pkg => pkg.category === selected);
+  const packages = selected === "All" ? catalogue : catalogue.filter(pkg => pkg.category === selected);
 
   return (
     <>

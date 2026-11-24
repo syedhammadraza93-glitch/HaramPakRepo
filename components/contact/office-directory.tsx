@@ -1,9 +1,8 @@
 import { Mail, MapPin, Phone } from "lucide-react";
-import { SITE_CONFIG } from "@/lib/constants";
 import { phoneUrl } from "@/lib/inquiries";
-import { officeRegions } from "@/lib/offices";
+import type { WebsiteContent } from "@/lib/website-content";
 
-export function OfficeDirectory() {
+export function OfficeDirectory({ regions, email }: { regions: WebsiteContent["offices"]; email: string }) {
   return (
     <section id="offices" className="office-directory" aria-labelledby="office-directory-title">
       <div className="site-shell home-section">
@@ -12,7 +11,7 @@ export function OfficeDirectory() {
           <p>Contact our Pakistan or Canada team before planning an office visit.</p>
         </div>
         <div className="office-regions">
-          {officeRegions.map(region => (
+          {regions.map(region => (
             <section className="office-region" key={region.code} aria-labelledby={`offices-${region.code}`}>
               <div className="office-region-heading">
                 <h3 id={`offices-${region.code}`}>{region.country}</h3>
@@ -20,7 +19,7 @@ export function OfficeDirectory() {
                   {region.phones.map(phone => (
                     <a key={phone} href={phoneUrl(phone)}><Phone aria-hidden="true" />{phone}</a>
                   ))}
-                  <a href={`mailto:${SITE_CONFIG.contact.email}`}><Mail aria-hidden="true" />{SITE_CONFIG.contact.email}</a>
+                  <a href={`mailto:${email}`}><Mail aria-hidden="true" />{email}</a>
                 </div>
               </div>
               <ul className="office-list">

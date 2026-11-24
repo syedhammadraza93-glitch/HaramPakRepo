@@ -1,3 +1,4 @@
+import { getWebsiteContent } from "@/lib/website-content";
 import { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Shield, Users, Award, CheckCircle } from "lucide-react";
@@ -11,10 +12,11 @@ export const metadata: Metadata = {
   description: "Learn about Haram Pak's mission, values, and commitment to serving pilgrims on their sacred journeys.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const { pageBanners } = await getWebsiteContent();
   return (
     <div>
-      <PageBanner label="ABOUT HARAM PAK" title="20+ years serving pilgrims" description="A Lahore-based Hajj and Umrah travel team helping pilgrims plan their journey to Makkah and Madinah." image="/images/madinah-courtyard.webp" />
+      <PageBanner {...pageBanners["about"]} />
 
       {/* Company Story */}
       <section className="py-24 md:py-32 bg-white">

@@ -13,7 +13,7 @@ const mainNav = SITE_CONFIG.navigation.filter(({ href }) =>
   ["/", "/umrah", "/hajj", "/hotels", "/visas", "/tour-packages", "/flights", "/contact"].includes(href),
 );
 
-export function Header() {
+export function Header({ contact }: { contact: { phone: string; email: string } }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname() ?? "/";
   const active = (href: string) => href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
@@ -22,8 +22,8 @@ export function Header() {
     <header className="site-header">
       <div className="utility-bar">
         <div className="site-shell utility-row">
-          <a href={phoneUrl(SITE_CONFIG.contact.phones.pakistan)}><Phone aria-hidden="true" /> {SITE_CONFIG.contact.phones.pakistan}</a>
-          <a className="utility-email" href={`mailto:${SITE_CONFIG.contact.email}`}><Mail aria-hidden="true" /> {SITE_CONFIG.contact.email}</a>
+          <a href={phoneUrl(contact.phone)}><Phone aria-hidden="true" /> {contact.phone}</a>
+          <a className="utility-email" href={`mailto:${contact.email}`}><Mail aria-hidden="true" /> {contact.email}</a>
           <span className="utility-location"><MapPin aria-hidden="true" /> Lahore, Pakistan</span>
           <nav className="utility-links" aria-label="Company and booking links">
             <Link href="/about/" aria-current={active("/about") ? "page" : undefined}>About Us</Link>

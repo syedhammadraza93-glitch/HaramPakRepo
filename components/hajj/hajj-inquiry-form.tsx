@@ -6,9 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { openWhatsApp } from "@/lib/inquiries";
+import { crmIntakeEnabled, useEnquirySubmission } from "@/lib/enquiry-submission";
+import { EnquiryStatus } from "@/components/contact/enquiry-status";
 
 export function HajjInquiryForm() {
+  const enquiry = useEnquirySubmission();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,7 +31,7 @@ City: ${formData.city}
 Number of Pilgrims: ${formData.pilgrims}
 Additional Information: ${formData.message || "None specified"}`;
 
-    openWhatsApp(message);
+    void enquiry.submit({ name: formData.name, phone: formData.phone, service: "Hajj", email: formData.email, city: formData.city, travellers: Number(formData.pilgrims), travelDate: undefined, note: formData.message }, message);
   };
 
   return (
@@ -122,7 +124,7 @@ Additional Information: ${formData.message || "None specified"}`;
           </div>
 
           <Button
-            type="submit"
+            type="submit" disabled={enquiry.pending || !!enquiry.reference}
             className="w-full bg-[#063B32] hover:bg-[#062A26] text-white py-6 text-base rounded-full"
             size="lg"
           >
@@ -132,6 +134,8 @@ Additional Information: ${formData.message || "None specified"}`;
           <p className="text-xs text-center text-muted-foreground">
             Review and send your enquiry in WhatsApp.
           </p>
+        {crmIntakeEnabled && <p className="text-sm text-muted-foreground">Haram Pak will use your contact details to respond to this enquiry.</p>}
+          <EnquiryStatus {...enquiry} />
         </form>
       </CardContent>
     </Card>

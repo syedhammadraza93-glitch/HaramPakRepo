@@ -10,17 +10,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tour-packages/" },
 };
 
-const ziarat = [
-  { title: "Iraq Ziarat", key: "iraq-ziarat", description: "Ask about itineraries covering the shrines of Imam Ali in Najaf and Imam Hussain and Hazrat Abbas in Karbala, with visits to Kufa, Kadhimiya and Samarra.", stops: "Najaf · Karbala · Kufa · Kadhimiya · Samarra" },
-  { title: "Iran Ziarat", key: "iran-ziarat", description: "Explore a route to the shrine of Imam Reza in Mashhad and the shrine of Hazrat Fatima Masumeh and Jamkaran Mosque in Qom.", stops: "Mashhad · Qom" },
-  { title: "Iran and Iraq Ziarat", key: "iran-iraq-ziarat", description: "Share your preferred cities and travel month to discuss a combined itinerary.", stops: "Multi-country itinerary" },
-  { title: "Arbaeen Ziarat", key: "arbaeen", description: "Ask about seasonal travel to Karbala for Arbaeen and options around the Najaf-to-Karbala pilgrimage route.", stops: "Najaf · Karbala" },
-] as const;
+import { getWebsiteContent } from "@/lib/website-content";
 
-export default function ToursPage() {
+export default async function ToursPage() {
+  const { ziarat, pageBanners } = await getWebsiteContent();
   return (
     <>
-      <PageBanner label="PILGRIMAGE & GROUP TRAVEL" title="Tour packages" description="Explore Iran and Iraq Ziarat, Hajj and Umrah, or enquire about a trip tailored to your group.">
+      <PageBanner {...pageBanners["tour-packages"]}>
         <Link className="pilgrim-button pilgrim-button-primary" href={travelEnquiryLink("tours")}>Request an Itinerary <ArrowRight aria-hidden="true" /></Link>
       </PageBanner>
       <section id="ziarat" className="site-shell home-section" aria-labelledby="ziarat-title">

@@ -3,7 +3,9 @@ import Image from "next/image";
 import { ArrowUpRight, MessageCircle, MapPin } from "lucide-react";
 import { whatsappUrl } from "@/lib/inquiries";
 
-export function Hero() {
+import type { WebsiteContent } from "@/lib/website-content";
+
+export function Hero({ content }: { content: WebsiteContent["homepage"] }) {
   return (
     <section className="home-hero" aria-labelledby="home-title">
       <div className="home-hero-image">
@@ -15,9 +17,9 @@ export function Hero() {
       <div className="hero-ornament" aria-hidden="true" />
       <div className="site-shell home-hero-inner">
         <div className="home-hero-copy">
-          <p className="section-kicker"><span /> HAJJ &amp; UMRAH FROM PAKISTAN</p>
-          <h1 id="home-title">Your Sacred<br /> Journey <em>Begins Here.</em></h1>
-          <p className="hero-description">Plan your Hajj or Umrah with a Lahore team that helps you choose flights, hotels and travel arrangements around your needs.</p>
+          <p className="section-kicker"><span /> {content.kicker}</p>
+          <h1 id="home-title">{content.headline} <em>{content.emphasis}</em></h1>
+          <p className="hero-description">{content.description}</p>
           <div className="hero-actions">
             <Link href="/umrah/" className="pilgrim-button pilgrim-button-gold">Explore Umrah Packages <ArrowUpRight aria-hidden="true" /></Link>
             <a href={whatsappUrl("As-salamu alaykum! I’d like help planning my pilgrimage.")} target="_blank" rel="noopener noreferrer" className="pilgrim-button pilgrim-button-outline"><MessageCircle aria-hidden="true" /> WhatsApp Us</a>

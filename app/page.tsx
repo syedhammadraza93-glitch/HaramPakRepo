@@ -5,7 +5,7 @@ import { ArrowRight, BedDouble, CalendarDays, CheckCircle2, ClipboardList, Heart
 import { Hero } from "@/components/home/hero";
 import { QuickInquiry } from "@/components/home/quick-inquiry";
 import { ClientCompanies } from "@/components/home/client-companies";
-import { clientCompanies, sampleClientCompanies } from "@/lib/client-companies";
+import { sampleClientCompanies } from "@/lib/client-companies";
 import { FeaturedPackages } from "@/components/home/featured-packages";
 import { FAQSection } from "@/components/home/faq-section";
 import { PRIVATE_REVIEW, SITE_CONFIG, SITE_ORIGIN } from "@/lib/constants";
@@ -20,10 +20,15 @@ const steps = [
   { icon: Plane, title: "Prepare to travel", copy: "Get your travel details and departure guidance." },
 ];
 
-export default function Home() {
+import { getWebsiteContent } from "@/lib/website-content";
+
+export default async function Home() {
+  const content = await getWebsiteContent();
+  const clientCompanies = content.clients;
+  const featured = content.homepage.featuredPackageIds.flatMap(id => content.packages.filter(pkg => pkg.id === id));
   const business = {
     "@context": "https://schema.org", "@type": "TravelAgency", name: SITE_CONFIG.name,
-    description: SITE_CONFIG.description, url: SITE_ORIGIN, telephone: SITE_CONFIG.contact.phones.pakistan,
+    description: SITE_CONFIG.description, url: SITE_ORIGIN, telephone: content.contact.phone,
     address: { "@type": "PostalAddress", streetAddress: "Eden Tower, Main Boulevard, Gulberg III", addressLocality: "Lahore", addressCountry: "PK" },
     areaServed: "Pakistan",
   };
@@ -33,7 +38,7 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(business).replace(/</g, "\\u003c") }} />
-      <Hero />
+      <Hero content={content.homepage} />
       <QuickInquiry />
       <ClientCompanies companies={showSampleClients ? sampleClientCompanies : clientCompanies} sample={showSampleClients} />
       <section className="trust-strip" aria-label="Haram Pak experience">
@@ -51,7 +56,7 @@ export default function Home() {
           <Link href="/flights/"><Plane aria-hidden="true" /> Tickets <ArrowRight aria-hidden="true" /></Link>
         </div>
       </section>
-      <FeaturedPackages />
+      <FeaturedPackages packages={featured} />
       <section className="stay-section" aria-labelledby="stay-title">
         <div className="site-shell stay-grid">
           <div className="section-heading">
@@ -84,7 +89,7 @@ export default function Home() {
           <Link href="/hotels/"><BedDouble aria-hidden="true" /> Hotel enquiries <ArrowRight aria-hidden="true" /></Link>
         </div>
       </section>
-      <FAQSection />
+      <FAQSection faqs={content.faqs} />
       <section className="home-cta" aria-labelledby="home-cta-title">
         <div className="site-shell">
           <h2 id="home-cta-title">Ready to plan your pilgrimage?</h2>

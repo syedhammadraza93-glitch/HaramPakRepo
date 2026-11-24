@@ -1,3 +1,4 @@
+import { getWebsiteContent } from "@/lib/website-content";
 import { Metadata } from "next";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Palmtree, Building2, Map, Camera, Ship, Train } from "lucide-react";
@@ -10,10 +11,11 @@ export const metadata: Metadata = {
   description: "Additional travel services including international tours, domestic travel, and holiday packages.",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const { pageBanners } = await getWebsiteContent();
   return (
     <div>
-      <PageBanner label="TRAVEL SUPPORT" title="Other travel services" description="Speak with our team about tickets, local and international travel, ground transport and accommodation." image="/images/makkah-at-night.webp" />
+      <PageBanner {...pageBanners["services"]} />
 
       {/* Services Grid */}
       <section className="py-20 bg-[#FAF8F3]">

@@ -4,8 +4,8 @@ import { Brand } from "@/components/layout/brand";
 import { SITE_CONFIG } from "@/lib/constants";
 import { phoneUrl } from "@/lib/inquiries";
 
-export function Footer() {
-  const { contact, navigation } = SITE_CONFIG;
+export function Footer({ contact, address }: { contact: { phone: string; email: string }; address: string }) {
+  const { navigation } = SITE_CONFIG;
   return (
     <footer className="site-footer">
       <div className="site-shell">
@@ -29,8 +29,8 @@ export function Footer() {
           </nav>
           <div className="footer-contact">
             <h2>Get in touch</h2>
-            <p><MapPin aria-hidden="true" /> {contact.address}</p>
-            <a href={phoneUrl(contact.phones.pakistan)}><Phone aria-hidden="true" /> {contact.phones.pakistan}</a>
+            <p><MapPin aria-hidden="true" /> {address}</p>
+            <a href={phoneUrl(contact.phone)}><Phone aria-hidden="true" /> {contact.phone}</a>
             <a href={`mailto:${contact.email}`}><Mail aria-hidden="true" /> {contact.email}</a>
           </div>
         </div>

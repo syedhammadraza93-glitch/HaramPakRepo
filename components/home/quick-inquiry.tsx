@@ -2,11 +2,25 @@
 
 import { ArrowRight, CalendarDays, MapPin, Navigation, Users } from "lucide-react";
 import { openWhatsApp } from "@/lib/inquiries";
+import { crmIntakeEnabled } from "@/lib/enquiry-submission";
+import { useRouter } from "next/navigation";
 
 export function QuickInquiry() {
+  const router = useRouter();
   function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const details = new FormData(event.currentTarget);
+    if (crmIntakeEnabled) {
+      const query = new URLSearchParams();
+      for (const key of ["journey", "city", "month", "travellers"]) query.set(key, String(details.get(key) ?? ""));
+      const campaign = new URLSearchParams(window.location.search);
+      for (const key of ["utm_source", "utm_medium", "utm_campaign"]) {
+        const value = campaign.get(key);
+        if (value) query.set(key, value.slice(0, 80));
+      }
+      router.push("/contact/?" + query + "#inquiry");
+      return;
+    }
     openWhatsApp([
       "As-salamu alaykum! I’d like a pilgrimage quote.",
       `Journey: ${details.get("journey")}`,
@@ -34,7 +48,7 @@ export function QuickInquiry() {
         </label>
         <div className="quick-plan-action">
           <button type="submit" className="pilgrim-button pilgrim-button-primary">Request a Quote <ArrowRight aria-hidden="true" /></button>
-          <span>Opens WhatsApp</span>
+          <span>{crmIntakeEnabled ? "Add your contact details" : "Opens WhatsApp"}</span>
         </div>
       </form>
     </section>

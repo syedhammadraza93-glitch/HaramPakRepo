@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { PageBanner } from "@/components/layout/page-banner";
 import { HotelInquiryForm } from "@/components/hotels/hotel-inquiry-form";
-import { umrahPackages } from "@/lib/umrah-packages";
+import { getWebsiteContent } from "@/lib/website-content";
 import { whatsappUrl } from "@/lib/inquiries";
 
 export const metadata: Metadata = {
@@ -12,11 +12,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/hotels/" },
 };
 
-export default function HotelsPage() {
-  const hotels = umrahPackages[0].hotels ?? [];
+export default async function HotelsPage() {
+  const { packages, pageBanners } = await getWebsiteContent();
+  const hotels = [...new Map(packages.flatMap(pkg => pkg.hotels ?? []).map(hotel => [hotel.name, hotel])).values()];
   return (
     <>
-      <PageBanner label="PILGRIM ACCOMMODATION" title="Hotels in Makkah and Madinah" description="Compare locations and ask our team about room types, walking routes and transport before you book." image="/images/madinah-courtyard.webp">
+      <PageBanner {...pageBanners["hotels"]}>
         <a href="#hotel-enquiry" className="pilgrim-button pilgrim-button-gold">Ask About Rooms <ArrowRight aria-hidden="true" /></a>
       </PageBanner>
       <section className="site-shell home-section" aria-labelledby="hotel-options">

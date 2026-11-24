@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin, Plane } from "lucide-react";
-import { featuredPackages, umrahPackages } from "@/lib/umrah-packages";
+import type { UmrahPackage } from "@/lib/umrah-packages";
 
-export function PackageCard({ pkg }: { pkg: (typeof umrahPackages)[number] }) {
+export function PackageCard({ pkg }: { pkg: UmrahPackage }) {
   return (
     <article className="package-card">
       <div className="package-photo">
@@ -23,7 +23,7 @@ export function PackageCard({ pkg }: { pkg: (typeof umrahPackages)[number] }) {
   );
 }
 
-export function FeaturedPackages() {
+export function FeaturedPackages({ packages }: { packages: UmrahPackage[] }) {
   return (
     <section className="site-shell home-section" id="packages" aria-labelledby="packages-title">
       <div className="section-heading section-heading-split">
@@ -34,7 +34,7 @@ export function FeaturedPackages() {
         </div>
         <Link href="/umrah/" className="pilgrim-button pilgrim-button-outline">View All Packages <ArrowRight aria-hidden="true" /></Link>
       </div>
-      <div className="package-grid">{featuredPackages.map(pkg => <PackageCard pkg={pkg} key={pkg.id} />)}</div>
+      <div className="package-grid">{packages.map(pkg => <PackageCard pkg={pkg} key={pkg.id} />)}</div>
     </section>
   );
 }

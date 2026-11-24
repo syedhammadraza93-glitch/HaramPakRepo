@@ -1,3 +1,4 @@
+import { getWebsiteContent } from "@/lib/website-content";
 import { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, AlertCircle, FileText, Calendar } from "lucide-react";
@@ -11,10 +12,11 @@ export const metadata: Metadata = {
   description: "Professional Hajj services and support for your sacred pilgrimage to Makkah.",
 };
 
-export default function HajjPage() {
+export default async function HajjPage() {
+  const { pageBanners } = await getWebsiteContent();
   return (
     <div>
-      <PageBanner label="HAJJ SERVICES" title="Plan your Hajj from Pakistan" description="Talk to our Lahore team about Hajj registration, accommodations, transport and current availability." image="/images/makkah-at-night.webp">
+      <PageBanner {...pageBanners["hajj"]}>
         <a href="#hajj-enquiry" className="pilgrim-button pilgrim-button-gold">Ask About Hajj <ArrowRight aria-hidden="true" /></a>
       </PageBanner>
 

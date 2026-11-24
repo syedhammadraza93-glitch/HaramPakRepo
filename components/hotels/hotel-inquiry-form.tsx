@@ -8,9 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar, Users, DollarSign } from "lucide-react";
-import { openWhatsApp } from "@/lib/inquiries";
+import { crmIntakeEnabled, useEnquirySubmission } from "@/lib/enquiry-submission";
+import { EnquiryStatus } from "@/components/contact/enquiry-status";
 
 export function HotelInquiryForm() {
+  const enquiry = useEnquirySubmission();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -43,7 +45,7 @@ Requirements: ${formData.requirements || "None specified"}`;
       checkOut?.reportValidity();
       return;
     }
-    openWhatsApp(message);
+    void enquiry.submit({ name: formData.name, phone: formData.phone, service: "Hotels", email: formData.email, city: formData.city, travellers: Number(formData.guests), travelDate: formData.checkIn, note: "Check-out: " + formData.checkOut + "\nBudget: " + formData.budget + "\n" + formData.requirements }, message);
   };
 
   return (
@@ -199,7 +201,7 @@ Requirements: ${formData.requirements || "None specified"}`;
           </div>
 
           <Button
-            type="submit"
+            type="submit" disabled={enquiry.pending || !!enquiry.reference}
             className="w-full bg-[#063B32] hover:bg-[#062A26] text-white py-6 text-base rounded-full"
             size="lg"
           >
@@ -209,6 +211,8 @@ Requirements: ${formData.requirements || "None specified"}`;
           <p className="text-xs text-center text-muted-foreground">
             Review and send your enquiry in WhatsApp.
           </p>
+        {crmIntakeEnabled && <p className="text-sm text-muted-foreground">Haram Pak will use your contact details to respond to this enquiry.</p>}
+          <EnquiryStatus {...enquiry} />
         </form>
       </CardContent>
     </Card>

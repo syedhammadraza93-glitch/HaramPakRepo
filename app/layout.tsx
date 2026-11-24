@@ -7,6 +7,8 @@ import { Footer } from "@/components/layout/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { PRIVATE_REVIEW, SITE_CONFIG, SITE_ORIGIN } from "@/lib/constants";
 
+import { getWebsiteContent } from "@/lib/website-content";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
   icons: { icon: "/images/haram-pak-logo.png" },
@@ -23,14 +25,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const { contact, offices } = await getWebsiteContent();
+  const office = offices.find(region => region.code === "PK")?.offices.find(item => !item.sample);
   return (
     <html lang="en-PK" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <a className="skip-link" href="#main-content">Skip to content</a>
-        <Header />
+        <Header contact={contact} />
         <main id="main-content" className="flex-1" tabIndex={-1}>{children}</main>
-        <Footer />
+        <Footer contact={contact} address={office?.address ?? SITE_CONFIG.contact.address} />
         <WhatsAppButton />
       </body>
     </html>

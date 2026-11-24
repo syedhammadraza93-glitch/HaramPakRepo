@@ -1,4 +1,4 @@
-type UmrahPackage = {
+export type UmrahPackage = {
   id: string;
   title: string;
   category: "Group" | "Tailored";
@@ -81,8 +81,6 @@ export const umrahPackages: UmrahPackage[] = [
     stay: "Discuss accommodation in Makkah and Madinah",
   })),
 ];
-
-export const featuredPackages = umrahPackages.slice(0, 3);
 
 export function packageQuote(id: string) {
   return `/contact/?package=${encodeURIComponent(id)}#inquiry`;

@@ -10,16 +10,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/umrah/" },
 };
 
-export default function UmrahPage() {
+import { getWebsiteContent } from "@/lib/website-content";
+
+export default async function UmrahPage() {
+  const { packages, pageBanners } = await getWebsiteContent();
   return (
     <>
-      <PageBanner label="UMRAH TRAVEL" title="Umrah packages from Lahore" description="Compare 15-day and 20-day group itineraries with direct flights planned from Lahore, or tailor your dates and accommodation." image="/images/makkah-golden-hour.webp" />
+      <PageBanner {...pageBanners["umrah"]} />
       <section className="site-shell home-section" aria-labelledby="choose-package">
         <div className="section-heading">
           <h2 id="choose-package">Find the right package</h2>
           <p>Ask our team to confirm your travel dates, seats, hotel rooms and total price.</p>
         </div>
-        <PackageList />
+        <PackageList catalogue={packages} />
         <Link href="/contact/#inquiry" className="text-link mt-6">Ask us to help you choose <ArrowRight aria-hidden="true" /></Link>
       </section>
     </>
