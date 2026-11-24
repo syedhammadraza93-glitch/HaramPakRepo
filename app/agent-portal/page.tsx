@@ -18,8 +18,16 @@ export default function AgentPortal() {
         <div className="detail-panel max-w-2xl">
           <h2 className="text-2xl mb-2">{PORTAL_URL ? "Sign in as an agent" : "Need agent access?"}</h2>
           <p>{PORTAL_URL ? "Use your agency credentials to sign in." : "Contact our team to request access for your travel agency."}</p>
-          {PORTAL_URL && <a href={PORTAL_URL} className="pilgrim-button pilgrim-button-primary">Sign in to B2B Agent Portal <ArrowUpRight aria-hidden="true" /></a>}
-          <Link href="/contact/?support=portal#inquiry" className="text-link mt-3">Get agent support <ArrowRight aria-hidden="true" /></Link>
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 [&_.pilgrim-button]:mt-0">
+            {PORTAL_URL && (
+              <a href={PORTAL_URL} className="pilgrim-button pilgrim-button-primary">
+                Sign in to B2B Agent Portal <ArrowUpRight aria-hidden="true" />
+              </a>
+            )}
+            <Link href="/contact/?support=portal#inquiry" className="text-link">
+              Get agent support <ArrowRight aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </section>
     </>
