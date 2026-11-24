@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pages = [
     ...SITE_CONFIG.navigation.map(({ href }) => href === "/" ? href : href + "/"),
     ...packages.map(({ id }) => `/umrah/${id}/`),
-    "/pilgrim-portal/",
+    "/agent-portal/",
   ];
   return pages.map(path => ({ url: new URL(path, SITE_ORIGIN).href }));
 }

@@ -13,7 +13,7 @@ export function ContactInquiry({ packages }: { packages: UmrahPackage[] }) {
   const selectedPackage = packages.find(pkg => pkg.id === params.get("package"));
   const directService = params.get("journey");
   const topic = selectedPackage?.id ?? getTravelEnquiry(params.get("topic")) ??
-    (params.get("support") === "portal" ? "Pilgrim Portal support" :
+    (params.get("support") === "portal" ? "B2B Agent Portal support" :
       directService === "Umrah" || directService === "Hajj" ? directService : "General travel enquiry");
   const value = (form: FormData, key: string) => String(form.get(key) ?? "").trim();
   const travellers = Math.max(1, Math.min(200, Number(params.get("travellers")) || 2));
@@ -47,7 +47,7 @@ export function ContactInquiry({ packages }: { packages: UmrahPackage[] }) {
           <option>Hotel accommodation</option>
           <option>Flights</option>
           {Object.values(travelEnquiries).map(item => <option key={item}>{item}</option>)}
-          <option>Pilgrim Portal support</option>
+          <option>B2B Agent Portal support</option>
         </select>
       </label>
       {crmIntakeEnabled && <label>Departure city <input name="city" maxLength={100} defaultValue={params.get("city")?.slice(0, 100) ?? ""} /></label>}

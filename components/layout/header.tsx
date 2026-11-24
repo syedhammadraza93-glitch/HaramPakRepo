@@ -27,7 +27,7 @@ export function Header({ contact }: { contact: { phone: string; email: string } 
           <span className="utility-location"><MapPin aria-hidden="true" /> Lahore, Pakistan</span>
           <nav className="utility-links" aria-label="Company and booking links">
             <Link href="/about/" aria-current={active("/about") ? "page" : undefined}>About Us</Link>
-            <Link href="/pilgrim-portal/" className="portal-link" aria-current={active("/pilgrim-portal") ? "page" : undefined}><UserRound aria-hidden="true" /> Pilgrim Portal</Link>
+            <Link href="/agent-portal/" className="portal-link" aria-current={active("/agent-portal") ? "page" : undefined}><UserRound aria-hidden="true" /> B2B Agent Portal</Link>
           </nav>
         </div>
       </div>
@@ -46,7 +46,7 @@ export function Header({ contact }: { contact: { phone: string; email: string } 
                 <Link href={href} key={href} aria-current={active(href) ? "page" : undefined} onClick={() => setOpen(false)}>{name}</Link>
               ))}
               <Link href="/about/" aria-current={active("/about") ? "page" : undefined} onClick={() => setOpen(false)}>About Us</Link>
-              <Link href="/pilgrim-portal/" aria-current={active("/pilgrim-portal") ? "page" : undefined} onClick={() => setOpen(false)}>Pilgrim Portal</Link>
+              <Link href="/agent-portal/" aria-current={active("/agent-portal") ? "page" : undefined} onClick={() => setOpen(false)}>B2B Agent Portal</Link>
               <Link href="/contact/#inquiry" className="pilgrim-button pilgrim-button-gold" onClick={() => setOpen(false)}>Plan Your Journey <ArrowUpRight aria-hidden="true" /></Link>
             </nav>
           </SheetContent>

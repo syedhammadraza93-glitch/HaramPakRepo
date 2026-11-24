@@ -25,7 +25,7 @@ export function Footer({ contact, address }: { contact: { phone: string; email: 
             <Link href="/gallery/">Gallery</Link>
             <Link href="/contact/">Contact Us</Link>
             <Link href="/contact/#offices">Our Offices</Link>
-            <Link href="/pilgrim-portal/">Pilgrim Portal</Link>
+            <Link href="/agent-portal/">B2B Agent Portal</Link>
           </nav>
           <div className="footer-contact">
             <h2>Get in touch</h2>
